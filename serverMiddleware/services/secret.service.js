@@ -7,15 +7,19 @@ export const saveSecret = async (text, expiration) => {
   try {
     const expirationDate = new Date();
     expirationDate.setMinutes(expirationDate.getMinutes() + expiration);
+
+    // id generation (later on we will use this as a secret)
     const id = uuid();
     const secret = await new Secret({
       secret: encrypt(text, id),
       _id: id,
       createdAt: new Date(),
       expiration: expirationDate,
-      limit: 4
+      limit: +(process.env.VIEW_LIMIT || 5)
     }).save();
+
     const { _id, limit } = secret;
+
     return {
       secret: _id,
       expireAfter: expiration,
@@ -26,6 +30,7 @@ export const saveSecret = async (text, expiration) => {
   }
 };
 export const getSecret = async (id) => {
+  // Validations
   if (!uuidValidate(id)) {
     throw new Error("Secret not found or expired");
   }
