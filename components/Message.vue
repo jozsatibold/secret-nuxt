@@ -1,30 +1,30 @@
 <template>
-  <div v-if="show" :class="messageClass">
+  <div
+    v-if="show"
+    :class="type === 'error' ? 'bg-red-500' : 'bg-blue-400'"
+    class="text-sm mt-2 mb-2 px-4 py-3 rounded-md font-medium leading-5 text-white">
     {{ message }}
   </div>
 </template>
 
 <script>
 export default {
-  name: 'SCMessage',
+  name: "SCMessage",
   props: {
     message: {
       type: String,
-      required: true,
+      default: () => ""
     },
     type: {
       type: String,
-      default: 'success',
-      validator: (value) => ['success', 'error'].includes(value)
+      default: () => "success",
+      validator: (value) => ["success", "error"].includes(value)
     }
   },
   computed: {
     show() {
-      return !!this.message
-    },
-    messageClass() {
-      return `text-sm px-4 py-3 rounded-md font-medium leading-5 text-white bg-${this.type === 'error' ? 'red' : 'green'}-500`
+      return !!this.message;
     }
   }
-}
+};
 </script>

@@ -12,7 +12,7 @@ import BasePage from "~/components/BasePage.vue";
 import SCSecretForm from "~/layouts/SecretForm.vue";
 import SCSavedSecret from "~/layouts/SavedSecret.vue";
 import { SavedSecret } from "~/models/secret.model";
-
+export * from './_secret.vue'
 export default Vue.extend({
   name: "IndexPage",
   components: { SCSavedSecret, SCSecretForm, BasePage },

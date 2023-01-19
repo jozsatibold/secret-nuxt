@@ -39,7 +39,9 @@ app.get('/secrets/:id', async (req, res) => {
     const data = await getSecret(id);
     res.json(data);
   } catch (error) {
-    res.status(500).json({message: error.message});
+    res
+      .status(error.message === 'Secret not found or expired' ? 404 : 500)
+      .json({message: error.message});
   }
 });
 

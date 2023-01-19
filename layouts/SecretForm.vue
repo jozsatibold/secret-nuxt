@@ -11,7 +11,7 @@
       :min="5"
       :value="60"
       @text-changed="expirationChanged" />
-    <SCMessage v-if="error" :message="error" />
+    <SCMessage v-if="error" :message="error" type="error"/>
     <SCButton @buttonClicked="submit">
       <ScLoader v-if="isLoading" />
       <template v-else>Encrypt text</template>
