@@ -1,9 +1,4 @@
 export default {
-  server: {
-    port: 4000,
-    host: "0.0.0.0",
-    timing: false
-  },
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: "Secret",
