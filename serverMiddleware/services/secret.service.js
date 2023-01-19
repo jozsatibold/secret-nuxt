@@ -1,4 +1,5 @@
 import { v4 as uuid, validate as uuidValidate } from "uuid";
+const { decrypt, encrypt } = require("../utils/encryption")
 
 const Secret = require("../schema/secret.scheme");
 
@@ -6,10 +7,10 @@ export const saveSecret = async (text, expiration) => {
   try {
     const expirationDate = new Date();
     expirationDate.setMinutes(expirationDate.getMinutes() + expiration);
-
+    const id = uuid();
     const secret = await new Secret({
-      secret: text,
-      _id: uuid(),
+      secret: encrypt(text, id),
+      _id: id,
       createdAt: new Date(),
       expiration: expirationDate,
       limit: 4
@@ -50,7 +51,7 @@ export const getSecret = async (id) => {
     });
     throw new Error("Secret not found or expired");
   }
-
+  const secretText = decrypt(isExist.secret, id);
   if (isExist.limit > 1) {
     // Decreasing the view limit
     await Secret.findByIdAndUpdate(id, { limit: isExist.limit - 1 });
@@ -58,7 +59,7 @@ export const getSecret = async (id) => {
 
   return {
     hash: isExist.secret,
-    secretText: isExist.secret,
+    secretText,
     createdAt: isExist.createdAt.getTime(),
     expiresAt: isExist.expiration.getTime(),
     remainingViews: isExist.limit

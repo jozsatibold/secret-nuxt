@@ -59,7 +59,7 @@ export default {
         this.isLoading = false;
         this.$emit("data", response.data);
       } catch (error) {
-        this.error = error;
+        this.error = error.message;
         this.isLoading = false;
       }
     }
