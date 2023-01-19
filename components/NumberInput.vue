@@ -1,18 +1,24 @@
 <template>
   <div class="relative rounded-md shadow-sm w-full">
-    <label v-if="label" class="block text-sm font-medium leading-5 text-gray-700">{{ label }}</label>
+    <label
+      v-if="label"
+      class="block text-sm font-medium leading-5
+     text-gray-700">{{ label }}</label>
     <input
+      v-model="text"
       :placeholder="placeholder"
       :disabled="disabled"
       type="number"
       :max="+max"
       :min="+min"
       :class="{'border-red-500': hasError }"
-      v-model="text"
-      class="form-input disabled:bg-gray-200 py-3 px-4 block w-full leading-5 rounded-md transition
-       duration-150 ease-in-out bg-white border border-gray-300 placeholder-gray-500
+      class="form-input disabled:bg-gray-200 py-3 px-4 block w-full
+       leading-5 rounded-md transition
+       duration-150 ease-in-out bg-white border border-gray-300
+        placeholder-gray-500
        border-2 resize-none
-       rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
+       rounded-md focus:outline-none focus:shadow-outline-blue
+        focus:border-blue-300 sm:text-sm sm:leading-5"
       @click="inputClicked"
       @input="textChanged"
     />

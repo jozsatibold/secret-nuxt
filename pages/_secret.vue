@@ -5,11 +5,11 @@
       <h5 class="text-lg text-center  font-medium text-gray-400">Data is loading</h5>
     </div>
     <div v-else-if="error" class="w-full gap-2 flex flex-col items-center">
-      <SCMessage  :message="error" :type="'error'" />
+      <SCMessage :message="error" :type="'error'" />
       <SCButton @buttonClicked="navigateToHome">New secret</SCButton>
     </div>
     <div v-else class="w-full gap-2 flex flex-col items-center">
-      <SCSecretEncrypted :secret="secret"/>
+      <SCSecretEncrypted :secret="secret" />
       <SCButton @buttonClicked="navigateToHome">New secret</SCButton>
     </div>
   </BasePage>
@@ -39,7 +39,9 @@ export default Vue.extend({
   },
   async mounted() {
     try {
-      const response = await this.$axios.get(`/api/secrets/${this.$route.params.secret || ""}`);
+      const response = await this.$axios.get(
+        `/api/secrets/${this.$route.params.secret || ""}`
+      );
       this.secret = response.data as EncryptedSecret;
       this.isLoading = false;
     } catch (error) {
@@ -55,7 +57,7 @@ export default Vue.extend({
   },
   methods: {
     navigateToHome() {
-      this.$router.push('/')
+      this.$router.push("/");
     }
   }
 });
